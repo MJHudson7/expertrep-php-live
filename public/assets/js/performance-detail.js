@@ -2,8 +2,9 @@
  * performance-detail.js
  *
  * Two independent things narrow what's shown here:
- *   1. The shared Course/Team/Name/CourseEndDate filters (right panel) —
- *      narrow which underlying assessment records are in play at all.
+ *   1. The shared Course/Team/Role/Name/CourseEndDate filters (right
+ *      panel) — narrow which underlying assessment records are in play
+ *      at all.
  *   2. This page's own view toggle (By Person / By Assessment) plus a
  *      dropdown — decides how those filtered records are GROUPED into
  *      chart panels, and whether to show one specific person/assessment
@@ -15,6 +16,13 @@
  * By Assessment, "Show All": one panel per topic, PEOPLE down the side
  *   (axes swapped vs. By Person).
  * By Assessment, one selected: single panel for that topic.
+ *
+ * The shared Sort Order toggle (window.getSortMode()) controls whether
+ * people are ordered alphabetically or by their average score, highest
+ * to lowest — applied to the "By Person" name list and to the people
+ * listed within each "By Assessment" topic panel. Topic order itself
+ * always follows the course's own defined activity order, since that's
+ * not a person-ranking concept.
  */
 
 Chart.register(ChartDataLabels);
@@ -102,6 +110,23 @@ function getTopicOrder(filteredAssessment) {
   return COURSE_ACTIVITIES[course] || [];
 }
 
+/**
+ * Orders `names` either alphabetically or by score descending, per the
+ * shared Sort Order toggle. `scoreForName(name)` computes whatever
+ * "score" means for the current view (overall average across topics for
+ * Person mode, average within one topic for Assessment mode).
+ */
+function orderNames(names, scoreForName) {
+  const sortMode = window.getSortMode ? window.getSortMode() : 'name';
+  const sorted = names.slice();
+  if (sortMode === 'score') {
+    sorted.sort((a, b) => scoreForName(b) - scoreForName(a));
+  } else {
+    sorted.sort();
+  }
+  return sorted;
+}
+
 function makePanel(headingText, labels, values, canvasHeight, averagePct) {
   const panel = document.createElement('div');
   panel.className = 'chart-panel';
@@ -185,7 +210,12 @@ function renderPerformanceDetail() {
 
   if (viewMode === 'person') {
     const byName = groupByParticipantAndTopic(filteredAssessment);
-    const names = Object.keys(byName).sort();
+    const rawNames = Object.keys(byName);
+    const names = orderNames(rawNames, (name) => {
+      const topics = topicOrder.filter(t => byName[name][t]);
+      const scores = topics.map(t => average(byName[name][t]));
+      return scores.length ? average(scores) : 0;
+    });
     populateViewSelect(names);
 
     if (names.length === 0) {
@@ -213,7 +243,8 @@ function renderPerformanceDetail() {
 
     const topicsToShow = viewSelection === 'all' ? topicsPresent : [viewSelection];
     topicsToShow.forEach(topic => {
-      const names = Object.keys(byTopic[topic]).sort();
+      const rawNames = Object.keys(byTopic[topic]);
+      const names = orderNames(rawNames, (name) => average(byTopic[topic][name]));
       const scores = names.map(n => average(byTopic[topic][n]));
       makePanel(topic, names, scores, Math.max(180, names.length * 26));
     });

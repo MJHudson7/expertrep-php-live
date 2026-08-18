@@ -696,3 +696,59 @@ body{
   .app{ grid-template-columns: 90px 1fr 280px; }
   .nav-item span{ display:none; }
 }
+
+/* ===== PDF EXPORT BUTTON ===== */
+.main-top-right{ display:flex; align-items:center; gap:14px; }
+.pdf-download-btn{
+  display:flex; align-items:center; gap: 6px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 11.5px; font-weight: 600; color: var(--teal-dark);
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.pdf-download-btn:hover{ background: var(--teal-pale); }
+.pdf-download-btn svg{ width: 14px; height: 14px; flex-shrink: 0; }
+
+@media print{
+  .sidebar, .filters, .pdf-download-btn, .guide-icon-row, .guide-overlay{ display:none !important; }
+  .app{ display:block; }
+  .main{ padding: 0; }
+}
+
+/* ===== FACILITATOR REPORT: rating colour-coding =====
+   Ratings now use a diverging agree->disagree palette rather than the
+   flat teal used everywhere else, since a single-hue palette made
+   adjacent ratings hard to tell apart at a glance (client feedback).
+   Flag if there are brand-approved exact colours these should match. */
+.facilitator-answer.rating-definitely-agree,
+.facilitator-answer.rating-strongly-agree{ background: #1E7A4C; }
+.facilitator-answer.rating-moderately-agree{ background: var(--teal); }
+.facilitator-answer.rating-neither{ background: #8A8F91; }
+.facilitator-answer.rating-moderately-disagree{ background: #D98A2B; }
+.facilitator-answer.rating-definitely-disagree,
+.facilitator-answer.rating-strongly-disagree{ background: #C24545; }
+
+/* ===== FACILITATOR REPORT: free-text section ===== */
+.facilitator-text-panel{
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px 16px;
+  margin-top: 10px;
+}
+.facilitator-text-row{
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.facilitator-text-row:last-child{ border-bottom: none; }
+.facilitator-text-question{
+  font-size: 12px; font-weight: 700; color: var(--teal-dark);
+  margin-bottom: 6px;
+}
+.facilitator-text-answer{
+  font-size: 12.5px; color: var(--text); line-height: 1.55;
+}

@@ -36,6 +36,12 @@
       </div>
     </div>
 
+    <!-- Role -->
+    <div class="filter-block">
+      <div class="filter-block-head">Role <span class="clear" data-clear="role">reset</span></div>
+      <div class="grid-2" id="roleList"></div>
+    </div>
+
     <!-- Course -->
     <div class="filter-block">
       <div class="filter-block-head">Course <span class="clear" data-clear="course">reset</span></div>
@@ -52,5 +58,14 @@
     <div class="filter-block">
       <div class="filter-block-head">Team Member <span class="clear" data-clear="name">reset</span></div>
       <div class="grid-3" id="nameList"></div>
+    </div>
+
+    <!-- Sort Order -->
+    <div class="filter-block">
+      <div class="filter-block-head">Sort Order</div>
+      <div class="pill-list" style="flex-direction:row; gap:6px;">
+        <div class="pill" id="sortModeName" style="flex:1; text-align:center;">Name (A-Z)</div>
+        <div class="pill off" id="sortModeScore" style="flex:1; text-align:center;">Highest to Lowest</div>
+      </div>
     </div>
   </aside>

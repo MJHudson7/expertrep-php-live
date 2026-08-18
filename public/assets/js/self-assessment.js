@@ -7,6 +7,11 @@
  * the shared filters currently include. Course is multi-select on this
  * page, so with no filters applied this aggregates across ALL courses by
  * default.
+ *
+ * Ordering follows the shared Sort Order toggle in the filters panel
+ * (window.getSortMode(): 'name' = alphabetical, 'score' = After-average
+ * descending) — re-read at render time since it can change independently
+ * of the record filters.
  */
 
 Chart.register(ChartDataLabels);
@@ -55,7 +60,14 @@ function renderSelfAssessment() {
     byName[r.name].before.push(r.before);
     byName[r.name].after.push(r.after);
   });
-  const names = Object.keys(byName).sort();
+
+  let names = Object.keys(byName);
+  const sortMode = window.getSortMode ? window.getSortMode() : 'name';
+  if (sortMode === 'score') {
+    names.sort((a, b) => average(byName[b].after) - average(byName[a].after));
+  } else {
+    names.sort();
+  }
 
   // Set the canvas container's height BEFORE updating the chart.
   const chartHeight = Math.max(320, names.length * 30);

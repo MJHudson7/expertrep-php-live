@@ -9,16 +9,18 @@ $app_data = [
     'records'    => $records,
     'courses'    => COURSES,
     'teams'      => TEAMS,
+    'roles'      => ROLES,
     'names'      => NAMES,
     'months'     => MONTHS,
     'monthYears' => MONTH_YEARS,
 ];
-$course_badges = [
-    'Assertiveness - Presence, Confidence and Embracing Objections' => 'assets/img/badges/assertiveness-presence-confidence.jpg',
-    'Product 1 - From Product Expert to Trusted Partner'            => 'assets/img/badges/product-1.jpg',
-    'Product 2 - From Product Expert to Trusted Partner'            => 'assets/img/badges/product-2.jpg',
-    'Assertive Customer-centric Engagement'                          => 'assets/img/badges/assertive-customer-centric-engagement.jpg',
-];
+// No badge images exist yet for the current 11-course sample list (the
+// old mapping was tied to the previous 4 course names and no longer
+// matches anything). Leaving this empty is intentional — the
+// course-badge-card markup below already renders blank when a course
+// has no entry here, so cards just show no image until real badge
+// artwork is provided. Add entries as: 'Exact Course Name' => 'assets/img/badges/file.jpg'
+$course_badges = [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +37,10 @@ $course_badges = [
   <main class="main">
     <div class="main-top">
       <div class="page-title heading">COURSES COMPLETED</div>
-      <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      <div class="main-top-right">
+        <?php include __DIR__ . '/../includes/pdf-button.php'; ?>
+        <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      </div>
     </div>
 
     <?php foreach (COURSES as $i => $course): ?>

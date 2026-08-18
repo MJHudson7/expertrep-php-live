@@ -11,13 +11,32 @@
  */
 
 const COURSES = [
-    'Assertiveness - Presence, Confidence and Embracing Objections',
-    'Product 1 - From Product Expert to Trusted Partner',
-    'Product 2 - From Product Expert to Trusted Partner',
-    'Assertive Customer-centric Engagement',
+    'Anatomy and Physiology of the Human Body',
+    'Disease Management',
+    'Diabetes Fundamentals',
+    'Pharmacovigilance and Reporting Adverse Events',
+    'Travel Safely',
+    'Interpreting and Presenting Clinical Trials',
+    'Constructive Conversations - Giving and Receiving Feedback',
+    'Negotiation Principles and Practices',
+    'Selling - Balancing Science and Art',
+    'Assertive Customer-centric Engagement in Healthcare Product Promotion and Sales',
+    'From Sales Manager to Sales Team Leader',
 ];
 
 const TEAMS = ['Diabetes Team', 'Dermatology Team', 'Immunology Team', 'Agency Team'];
+
+/**
+ * Current role, pulled (in the real Moodle integration) from the user
+ * profile field of the same name. Used to drive the Role filter.
+ */
+const ROLES = [
+    'Medical Representative',
+    'Sales Manager',
+    'Brand Manager',
+    'Medical Science Liaison',
+    'Other',
+];
 
 const NAMES = [
     'Bongani Zulu', 'Pieter van der Merwe', 'Sipho Dlamini', 'Thandi Nkosi', 'Annelie Botha',
@@ -31,65 +50,100 @@ const MONTHS = ['AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN', 'FEB', 'MAR', 'APR', '
 const MONTH_YEARS = ['2025', '2025', '2025', '2025', '2025', '2026', '2026', '2026', '2026', '2026', '2026'];
 
 /**
- * Per-course activity/assessment lists, from the client's updated
- * courses_assessments.csv. Unlike the first version of this file (where
- * every course shared the same 39 items), each course now has its own
- * genuinely distinct list. The CSV's own course headers and some activity
- * item text used real product names ("Erleada", "Imbruvica") — all of
- * those have been replaced with the generic "Product 1" / "Product 2"
- * naming (in the order they appeared in the CSV) throughout, at every
- * level, not just the course title.
+ * Per-course activity/assessment lists. Placeholder content matching the
+ * new 11-course sample list (client's real Moodle activity names will
+ * replace these once available) — Announcements and Course Evaluation are
+ * deliberately left out of every course's list per the client's request;
+ * Course Evaluation is still captured separately via the standardized
+ * form on the Evaluation page, it's just not listed as an "activity" here.
  */
 const COURSE_ACTIVITIES = [
-    'Assertiveness - Presence, Confidence and Embracing Objections' => [
-        '1 of 3: Assertive greetings',
-        '1 of 3: The Objection Opportunity',
-        '2 of 3: Assertive language',
-        '2 of 3: The Objection Opportunity',
-        '3 of 3:  Assertive product discussion',
-        '3 of 3: The Objection Opportunity',
-        'AFTER: Self assessment - Mastering challenging conversations',
-        'Announcements',
-        'BEFORE: Self assessment - Mastering challenging conversations',
-        'Communication - How You Say It',
-        'Course Evaluation',
-        'Insight into Assertiveness',
-        'The Assertive Medical Representative - Adding Value.',
-        'The Power of Presence',
+    'Anatomy and Physiology of the Human Body' => [
+        'BEFORE: Self assessment - Anatomy and Physiology',
+        'Introduction to Human Body Systems',
+        'The Cardiovascular System',
+        'The Nervous System',
+        'The Endocrine System',
+        'Applying Anatomy Knowledge to Product Conversations',
+        'AFTER: Self assessment - Anatomy and Physiology',
     ],
-    'Product 1 - From Product Expert to Trusted Partner' => [
-        'AFTER: Self assessment: From Product Expert to Trusted Partner',
-        'Announcements',
-        'Assertive Product Discussions',
-        'BEFORE: Self assessment: From Product Expert to Trusted Partner',
-        'Clinical Study Excellence - Product 1',
-        'Course Evaluation',
-        'Product 1 - applied product knowledge',
-        'Product 1 - Overcoming Competitor Objections',
-        'Simplify and communicate complex clinical concepts',
-        'The Right Patient',
+    'Disease Management' => [
+        'BEFORE: Self assessment - Disease Management',
+        'Understanding Disease Progression',
+        'Treatment Pathways and Guidelines',
+        'Managing Chronic Conditions',
+        'Case Study: Disease Management in Practice',
+        'AFTER: Self assessment - Disease Management',
     ],
-    'Product 2 - From Product Expert to Trusted Partner' => [
-        'AFTER: Self assessment: From Product Expert to Trusted Partner',
-        'Announcements',
-        'Assertive Product Discussions',
-        'BEFORE: Self assessment: From Product Expert to Trusted Partner',
-        'Clinical study excellence - Product 2',
-        'Course Evaluation',
-        'Product 2 - applied product knowledge',
-        'Product 2 - Overcoming Competitor Objections',
-        'Simplify and communicate complex clinical concepts',
-        'The Right Patient',
+    'Diabetes Fundamentals' => [
+        'BEFORE: Self assessment - Diabetes Fundamentals',
+        'Types and Causes of Diabetes',
+        'Diagnosis and Monitoring',
+        'Treatment Options and Adherence',
+        'Diabetes and Lifestyle Management',
+        'AFTER: Self assessment - Diabetes Fundamentals',
     ],
-    'Assertive Customer-centric Engagement' => [
-        'Assessment: Assertive Customer-centric Engagement',
-        'HCP Emotional Decision Drivers',
-        'Healthcare Practitioner Decision Drivers',
-        'Listen with Intent',
-        'Observation during HCP Engagement',
-        'Psychological factors driving decisions',
-        'Strategic Questioning',
+    'Pharmacovigilance and Reporting Adverse Events' => [
+        'BEFORE: Self assessment - Pharmacovigilance',
+        'Principles of Pharmacovigilance',
+        'Identifying Adverse Events',
+        'Reporting Procedures and Timelines',
+        'Case Study: Adverse Event Reporting',
+        'AFTER: Self assessment - Pharmacovigilance',
+    ],
+    'Travel Safely' => [
+        'Travel Risk Awareness',
+        'Health and Safety While Traveling',
+        'Emergency Procedures on the Road',
+        'Assessment: Travel Safely',
+    ],
+    'Interpreting and Presenting Clinical Trials' => [
+        'BEFORE: Self assessment - Clinical Trials',
+        'Understanding Trial Design and Methodology',
+        'Interpreting Statistical Significance',
+        'Presenting Clinical Data to HCPs',
+        'Handling Questions on Clinical Evidence',
+        'AFTER: Self assessment - Clinical Trials',
+    ],
+    'Constructive Conversations - Giving and Receiving Feedback' => [
+        'BEFORE: Self assessment - Constructive Conversations',
+        'Principles of Constructive Feedback',
+        'Giving Feedback with Confidence',
+        'Receiving and Acting on Feedback',
+        'Practicing Difficult Conversations',
+        'AFTER: Self assessment - Constructive Conversations',
+    ],
+    'Negotiation Principles and Practices' => [
+        'BEFORE: Self assessment - Negotiation Principles',
+        'Foundations of Negotiation',
+        'Preparing for a Negotiation',
+        'Negotiation Tactics and Techniques',
+        'Reaching Win-Win Outcomes',
+        'AFTER: Self assessment - Negotiation Principles',
+    ],
+    'Selling - Balancing Science and Art' => [
+        'BEFORE: Self assessment - Balancing Science and Art',
+        'The Science of Selling',
+        'The Art of Building Rapport',
+        'Combining Data with Storytelling',
+        'Practical Application in the Field',
+        'AFTER: Self assessment - Balancing Science and Art',
+    ],
+    'Assertive Customer-centric Engagement in Healthcare Product Promotion and Sales' => [
+        'BEFORE: Self assessment - Assertive Customer-centric Engagement',
         'Understanding Customer Personalities',
+        'Healthcare Practitioner Decision Drivers',
+        'Strategic Questioning',
+        'Assertive Product Discussions',
+        'AFTER: Self assessment - Assertive Customer-centric Engagement',
+    ],
+    'From Sales Manager to Sales Team Leader' => [
+        'BEFORE: Self assessment - Sales Team Leadership',
+        'Transitioning from Manager to Leader',
+        'Coaching and Developing Your Team',
+        'Leading Through Change',
+        'Building a High-Performing Sales Culture',
+        'AFTER: Self assessment - Sales Team Leadership',
     ],
 ];
 
@@ -120,7 +174,7 @@ function weighted_pick(array $items, array $weights)
  * Each record = one student's completion of one course.
  *
  * Fields:
- *   name, team, course, month_index (0-10, Aug25-Jun26),
+ *   name, team, role, course, month_index (0-10, Aug25-Jun26),
  *   grade (0-100), activity_passed (bool),
  *   knowledge (Excellent|Good|Fair|Poor),
  *   confidence (Excellent|Good|Fair|Poor|Not Relevant),
@@ -136,13 +190,15 @@ function get_records(): array
     mt_srand(42); // fixed seed so dummy data is stable across reloads
 
     $name_team = [];
+    $name_role = [];
     foreach (NAMES as $i => $name) {
         $name_team[$name] = TEAMS[$i % count(TEAMS)];
+        $name_role[$name] = ROLES[$i % count(ROLES)];
     }
 
     $records = [];
     foreach (NAMES as $name) {
-        $num_courses = 2 + mt_rand(0, 2); // 2-4 courses (out of 4 total)
+        $num_courses = 2 + mt_rand(0, 2); // 2-4 courses (out of 11 total)
         $shuffled = COURSES;
         shuffle($shuffled);
         $selected = array_slice($shuffled, 0, $num_courses);
@@ -151,6 +207,7 @@ function get_records(): array
             $records[] = [
                 'name'            => $name,
                 'team'            => $name_team[$name],
+                'role'            => $name_role[$name],
                 'course'          => $course,
                 'month_index'     => mt_rand(0, 10),
                 'grade'           => mt_rand(72, 99),
@@ -204,6 +261,7 @@ function get_assessment_records(): array
             $assessment_records[] = [
                 'name'        => $r['name'],
                 'team'        => $r['team'],
+                'role'        => $r['role'],
                 'course'      => $r['course'],
                 'month_index' => $r['month_index'],
                 'topic'       => $topic,
@@ -258,6 +316,7 @@ function get_confidence_records(): array
             $confidence_records[] = [
                 'name'        => $r['name'],
                 'team'        => $r['team'],
+                'role'        => $r['role'],
                 'course'      => $r['course'],
                 'month_index' => $r['month_index'],
                 'statement'   => $statement,
@@ -295,6 +354,7 @@ function get_self_assessment_records(): array
         $self_assessment_records[] = [
             'name'        => $r['name'],
             'team'        => $r['team'],
+            'role'        => $r['role'],
             'course'      => $r['course'],
             'month_index' => $r['month_index'],
             'before'      => $before,
@@ -346,6 +406,17 @@ const FACILITATOR_REPORT_QUESTIONS = [
     'Monitored understanding, provided constructive feedback, and adapted delivery as needed to support participant learning outcomes.',
 ];
 
+/**
+ * Free-text section of the Facilitator Workshop Report (added per
+ * client request) — unlike FACILITATOR_REPORT_QUESTIONS above, these are
+ * open-ended narrative fields rather than a rating on WORKSHOP_SCALE.
+ */
+const FACILITATOR_REPORT_TEXT_FIELDS = [
+    'What went well',
+    'What can be improved',
+    'Recommendations and next steps',
+];
+
 // Workshop Evaluation and the Facilitator Report share the same
 // response scale in the client's forms.
 const WORKSHOP_SCALE = ['Definitely agree', 'Moderately agree', 'Neither', 'Moderately disagree', 'Definitely disagree'];
@@ -353,7 +424,7 @@ const WORKSHOP_SCALE = ['Definitely agree', 'Moderately agree', 'Neither', 'Mode
 /**
  * Which courses have an associated workshop. Dummy assumption for
  * testing purposes (real logic will come from actual scheduling data
- * later): the first 2 of the 4 courses have one, the other 2 don't, so
+ * later): the first 2 of the 11 courses have one, the rest don't, so
  * both the "has a workshop" and "no workshop" states are visible.
  */
 function get_courses_with_workshop(): array
@@ -387,6 +458,7 @@ function get_course_evaluation_records(): array
             $records[] = [
                 'name'        => $r['name'],
                 'team'        => $r['team'],
+                'role'        => $r['role'],
                 'course'      => $r['course'],
                 'month_index' => $r['month_index'],
                 'question'    => $question,
@@ -422,6 +494,7 @@ function get_workshop_evaluation_records(): array
             $records[] = [
                 'name'        => $r['name'],
                 'team'        => $r['team'],
+                'role'        => $r['role'],
                 'course'      => $r['course'],
                 'month_index' => $r['month_index'],
                 'question'    => $question,
@@ -435,7 +508,10 @@ function get_workshop_evaluation_records(): array
 
 /**
  * ONE report per workshop-having course (not per student). Returns
- * [course => [question => answer, ...], ...].
+ * [course => ['ratings' => [question => answer, ...], 'text' => [field => answer, ...]], ...].
+ * 'ratings' feeds the existing pill-style question list; 'text' is the
+ * new free-text section (What went well / What can be improved /
+ * Recommendations and next steps).
  */
 function get_facilitator_reports(): array
 {
@@ -446,13 +522,43 @@ function get_facilitator_reports(): array
 
     mt_srand(125);
 
+    // Small pool of canned narrative answers, cycled per course so the
+    // demo shows variety rather than identical text everywhere.
+    $went_well_pool = [
+        'Participants engaged actively and asked thoughtful questions throughout the session.',
+        'Strong participation in the practical exercises, with several participants sharing real examples from the field.',
+        'The group grasped the core concepts quickly, which allowed more time for role-play practice.',
+    ];
+    $improve_pool = [
+        'More time could be allocated for practical role-play exercises.',
+        'A few participants would have benefited from a shorter theory section and more hands-on time.',
+        'Room setup made small-group work a bit cramped — worth revisiting the venue layout next time.',
+    ];
+    $next_steps_pool = [
+        'Schedule a refresher session in 3 months and pair participants with a mentor for ongoing practice.',
+        'Share a short follow-up video recapping the key techniques as a refresher before the next cycle.',
+        'Introduce a peer role-play buddy system so participants can keep practicing between formal sessions.',
+    ];
+
     $reports = [];
+    $i = 0;
     foreach (get_courses_with_workshop() as $course) {
-        $answers = [];
+        $ratings = [];
         foreach (FACILITATOR_REPORT_QUESTIONS as $question) {
-            $answers[$question] = weighted_pick(WORKSHOP_SCALE, [0.5, 0.3, 0.12, 0.06, 0.02]);
+            $ratings[$question] = weighted_pick(WORKSHOP_SCALE, [0.5, 0.3, 0.12, 0.06, 0.02]);
         }
-        $reports[$course] = $answers;
+
+        $text = [
+            'What went well'                => $went_well_pool[$i % count($went_well_pool)],
+            'What can be improved'          => $improve_pool[$i % count($improve_pool)],
+            'Recommendations and next steps' => $next_steps_pool[$i % count($next_steps_pool)],
+        ];
+
+        $reports[$course] = [
+            'ratings' => $ratings,
+            'text'    => $text,
+        ];
+        $i++;
     }
 
     return $reports;

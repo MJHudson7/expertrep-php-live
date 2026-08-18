@@ -13,6 +13,7 @@ $app_data = [
     'courseActivities'  => get_course_activities(),
     'courses'           => COURSES,
     'teams'             => TEAMS,
+    'roles'             => ROLES,
     'names'             => NAMES,
     'months'            => MONTHS,
     'monthYears'        => MONTH_YEARS,
@@ -33,7 +34,10 @@ $app_data = [
   <main class="main">
     <div class="main-top">
       <div class="page-title heading">PERFORMANCE - DETAIL</div>
-      <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      <div class="main-top-right">
+        <?php include __DIR__ . '/../includes/pdf-button.php'; ?>
+        <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      </div>
     </div>
 
     <div class="chart-panel">

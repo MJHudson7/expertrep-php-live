@@ -28,7 +28,10 @@
         <p><strong>Insight:</strong> a comparison of the confidence levels of all team members, before and after the completion of the courses, is presented.</p>
 
         <h3>Evaluation</h3>
-        <p><strong>Insight:</strong> feedback from team members on the level of knowledge and confidence gained through completing their courses is presented.</p>
+        <p><strong>Insight:</strong> feedback from team members on the level of knowledge and confidence gained through completing their courses is presented. The Facilitator Workshop Report includes both rated questions (colour-coded by response) and a short written summary of what went well, what can be improved, and recommendations for next steps.</p>
+
+        <h3>Downloading a page</h3>
+        <p>Use the <strong>Download PDF</strong> button at the top of any page to save that page as a PDF using your browser's print dialog.</p>
       </div>
 
       <div class="guide-panel" id="guidePanel-filters" style="display:none;">
@@ -37,13 +40,16 @@
         <h3>Time Period</h3>
         <p>Drag either end of the slider to set a date range. Both handles at the ends means "All Periods" - no date restriction applied.</p>
 
-        <h3>Course, Team, and Team Member</h3>
+        <h3>Role, Course, Team, and Team Member</h3>
         <p>Click a single option to filter to just that one - everything else is deselected. Hold <strong>Cmd</strong> (Mac) or <strong>Ctrl</strong> (Windows) while clicking to select more than one at a time without losing your existing selection.</p>
         <p>Click <strong>reset</strong> next to a filter's name to return it to showing everything.</p>
         <p>On the Performance Detail and Evaluation pages, Course is limited to one selection at a time - those pages are built around a single course's detail, so mixing courses there wouldn't give a meaningful result.</p>
 
+        <h3>Sort Order</h3>
+        <p>Switch between <strong>Name (A-Z)</strong> and <strong>Highest to Lowest</strong> to change how people are ordered on Performance Results, Performance Detail, and Self Assessment.</p>
+
         <h3>Filters affect each other</h3>
-        <p>Selecting a Team or Course automatically hides any Team Member, Course, or Team option that has no matching data - so you'll only ever see choices that actually apply to your current selection.</p>
+        <p>Selecting a Role, Team, or Course automatically hides any Team Member, Course, Team, or Role option that has no matching data - so you'll only ever see choices that actually apply to your current selection.</p>
 
         <h3>One more thing</h3>
         <p>Filter selections don't carry over when you move to a different page. Remember to reset or reapply filters as needed after navigating, rather than assuming a previous page's selection is still active.</p>

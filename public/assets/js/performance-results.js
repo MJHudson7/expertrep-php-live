@@ -5,7 +5,12 @@
  *   - "Activities passed by Participant" (line chart)
  *   - "Grade % by Participant" (bar chart)
  * Both aggregate the currently-filtered records per participant name.
- * Registers itself with filters.js so it re-renders on any filter change.
+ * Ordering follows the shared Sort Order toggle in the filters panel
+ * (window.getSortMode(): 'name' = alphabetical, 'score' = grade average
+ * descending) — re-read at render time since it can change independently
+ * of the record filters.
+ * Registers itself with filters.js so it re-renders on any filter or
+ * sort-order change.
  */
 
 Chart.register(ChartDataLabels);
@@ -58,6 +63,8 @@ const barChart = new Chart(document.getElementById('gradeBarChart'), {
   }
 });
 
+function average(arr) { return arr.reduce((a, b) => a + b, 0) / arr.length; }
+
 function computeParticipantStats(filtered) {
   const byName = {};
   filtered.forEach(r => {
@@ -65,7 +72,15 @@ function computeParticipantStats(filtered) {
     byName[r.name].grades.push(r.grade);
     if (r.activity_passed) byName[r.name].passedCount += 1;
   });
-  return Object.values(byName).sort((a, b) => a.name.localeCompare(b.name));
+
+  const stats = Object.values(byName);
+  const sortMode = window.getSortMode ? window.getSortMode() : 'name';
+  if (sortMode === 'score') {
+    stats.sort((a, b) => average(b.grades) - average(a.grades));
+  } else {
+    stats.sort((a, b) => a.name.localeCompare(b.name));
+  }
+  return stats;
 }
 
 function renderPerformanceResults(filtered) {
@@ -77,7 +92,7 @@ function renderPerformanceResults(filtered) {
   lineChart.update();
 
   barChart.data.labels = labels;
-  barChart.data.datasets[0].data = stats.map(s => s.grades.reduce((a, b) => a + b, 0) / s.grades.length);
+  barChart.data.datasets[0].data = stats.map(s => average(s.grades));
   barChart.update();
 }
 

@@ -9,6 +9,7 @@ $app_data = [
     'records'    => $records,
     'courses'    => COURSES,
     'teams'      => TEAMS,
+    'roles'      => ROLES,
     'names'      => NAMES,
     'months'     => MONTHS,
     'monthYears' => MONTH_YEARS,
@@ -29,41 +30,50 @@ $app_data = [
   <main class="main">
     <div class="main-top">
       <div class="page-title heading">SUCCESS</div>
-      <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      <div class="main-top-right">
+        <?php include __DIR__ . '/../includes/pdf-button.php'; ?>
+        <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      </div>
+    </div>
+
+    <div class="success-lessons-panel">
+      <div class="success-lessons-title">Interpretation</div>
+      <ul class="success-lessons-list">
+        <li>The overall average grade of 85.25% meets the required company standards.</li>
+        <li>A total of 28 courses successfully completed and associated badges earned reflects the amount of learning achieved.</li>
+        <li>Team members consistently reported an improvement of confidence from 71% confidence before, to 87% confidence after having completed the courses.</li>
+        <li>The workshops consistently met expectations, built knowledge and confidence and sessions were effectively facilitated.</li>
+      </ul>
     </div>
 
     <div class="success-lessons-panel">
       <div class="success-lessons-title">Lessons Learned &amp; Recommendations</div>
+      <p style="margin: 0 0 10px; font-size: 13px; color: var(--text);">Areas where performance results indicate further development may be beneficial are:</p>
       <ul class="success-lessons-list">
-        <li>The overall learning experience was extremely positive. All team members indicated they have benefited from completing the course. Improvement in self-reported confidence was reported by 14/16 (88%) of the team, when comparing before and after course completion scores.</li>
-        <li>Areas of improvement identified by the team were only related to the user-friendliness of the platform. We will review types of activities, feedback fields, responsiveness and overall site navigation.</li>
-        <li>Brendan stated Strongly Disagree with ExpertRep communicating and responding to questions. We followed up with him and he responded that his rating was &ldquo;a mistake and that everything about that was very good&rdquo;.</li>
-        <li>Chantel requested to view her team grades during the course. We are looking into providing a real-time overview of each team&rsquo;s grades available to Sales Managers within the ExpertRep platform.</li>
-        <li>Time keeping was very good. During week 6 when most team members had to redo one or more activities, some left it a bit too late. This should be better in cycle 2, when the process is not new anymore.</li>
-        <li>
-          When activities required critical thinking and practical application (Week 4 and 5), the results were not as high as we would have wanted. This identified areas of improvement, of which the main areas are:
-          <ol class="success-lessons-sublist">
-            <li>Consistently mentioning a benefit with every feature.</li>
-            <li>Purposefully include assertive language in predeveloped, practiced phrases.</li>
-            <li>Reflect on their own responses, understand why they are passive, aggressive or assertive and improve their assertiveness.</li>
-            <li>Create and practice realistic phrases which match your own personality and communication style to not sound rehearsed but prepared, authentic and assertive.</li>
-          </ol>
-        </li>
+        <li>Handling objections</li>
+        <li>Negotiation principles and practices</li>
+        <li>Advanced listening techniques</li>
       </ul>
     </div>
 
+    <!--
+      Quotes below use "Team Member" as a placeholder attribution — the
+      content you sent didn't include names for these 3 quotes ("add
+      names from report to each" reads like a note-to-self on your end).
+      Swap in the real names whenever you have them.
+    -->
     <div class="success-quotes-row">
       <div class="success-quote-card">
-        <div class="success-quote-text">The topics covered were effective and informative.</div>
-        <div class="success-quote-attr">- Thanusha</div>
+        <div class="success-quote-text">I love that we can do this on our own time. It is relaxed and I even do a few questions in front of the TV sometimes. And if I don&rsquo;t get it right the first time it is not a train smash. I actually remember the questions when I go back a second time, this really helps me to learn.</div>
+        <div class="success-quote-attr">- Team Member</div>
       </div>
       <div class="success-quote-card">
-        <div class="success-quote-text">Recommend? Yes, it helps in difficult situations to communicate your experience and listen to what the other person wants to tell you.</div>
-        <div class="success-quote-attr">- Hanri</div>
+        <div class="success-quote-text">Going into the personality types with different tools helped me to be better at identifying what type of personality my customers have. Changing my approach to call preparation and identifying possible objections and how to handle it.</div>
+        <div class="success-quote-attr">- Team Member</div>
       </div>
       <div class="success-quote-card">
-        <div class="success-quote-text">Good assignments and learned a lot, had to sit and concentrate to do assignments that was very in depth.</div>
-        <div class="success-quote-attr">- Marlien</div>
+        <div class="success-quote-text">Loved the format of this course, self check constantly during course is lovely.</div>
+        <div class="success-quote-attr">- Team Member</div>
       </div>
     </div>
   </main>

@@ -11,6 +11,7 @@ $app_data = [
     'courseEvaluationRecords'    => get_course_evaluation_records(),
     'workshopEvaluationRecords'  => get_workshop_evaluation_records(),
     'facilitatorReports'         => get_facilitator_reports(),
+    'facilitatorReportTextFields'=> FACILITATOR_REPORT_TEXT_FIELDS,
     'coursesWithWorkshop'        => get_courses_with_workshop(),
     'courseEvalQuestions'        => COURSE_EVAL_QUESTIONS,
     'courseEvalScale'            => COURSE_EVAL_SCALE,
@@ -19,6 +20,7 @@ $app_data = [
     'facilitatorReportQuestions' => FACILITATOR_REPORT_QUESTIONS,
     'courses'                    => COURSES,
     'teams'                      => TEAMS,
+    'roles'                      => ROLES,
     'names'                      => NAMES,
     'months'                     => MONTHS,
     'monthYears'                 => MONTH_YEARS,
@@ -39,7 +41,10 @@ $app_data = [
   <main class="main">
     <div class="main-top">
       <div class="page-title heading">EVALUATION</div>
-      <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      <div class="main-top-right">
+        <?php include __DIR__ . '/../includes/pdf-button.php'; ?>
+        <div class="logo"><img src="assets/img/expertrep-logo.png" alt="ExpertRep" class="logo-mark">EXPERT<span class="dot">·</span>REP</div>
+      </div>
     </div>
 
     <div class="eval-section-title">Course Evaluation</div>

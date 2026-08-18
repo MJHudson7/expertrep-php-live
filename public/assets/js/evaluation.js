@@ -7,11 +7,21 @@
  * see FILTER_CONFIG in evaluation.php) has an associated workshop; when
  * it doesn't, a single "no workshop" notice replaces both sections so the
  * page still displays cleanly rather than showing empty panels.
+ *
+ * Facilitator Report has two parts per course:
+ *   - ratings: the original 5 pill-style questions, now colour-coded by
+ *     response (agree = green/teal, neutral = grey, disagree = orange/red)
+ *     rather than a single flat colour, since the flat colour made
+ *     adjacent ratings hard to distinguish at a glance.
+ *   - text: three new free-text fields (What went well / What can be
+ *     improved / Recommendations and next steps), rendered as a simple
+ *     question/answer list below the ratings.
  */
 
 const COURSE_EVAL_RECORDS = window.APP_DATA.courseEvaluationRecords;
 const WORKSHOP_EVAL_RECORDS = window.APP_DATA.workshopEvaluationRecords;
 const FACILITATOR_REPORTS = window.APP_DATA.facilitatorReports;
+const FACILITATOR_REPORT_TEXT_FIELDS = window.APP_DATA.facilitatorReportTextFields;
 const COURSES_WITH_WORKSHOP = new Set(window.APP_DATA.coursesWithWorkshop);
 
 const COURSE_EVAL_QUESTIONS = window.APP_DATA.courseEvalQuestions;
@@ -24,9 +34,22 @@ const courseEvalRow = document.getElementById('courseEvalRow');
 const workshopSections = document.getElementById('workshopSections');
 
 const THEME = window.APP_DATA.theme;
-const DONUT_COLORS = [THEME['teal-dark'], THEME['teal-mid'], THEME.teal, THEME['teal-light'], '#B9C3C5'];
+// A wider-contrast, diverging-style palette for the evaluation donuts —
+// the previous version used 5 shades of the same teal, which made
+// adjacent response levels hard to tell apart (client feedback).
+const DONUT_COLORS = ['#1E7A4C', '#5FA870', THEME['teal-mid'], '#D98A2B', '#C24545'];
 
 let chartInstances = [];
+
+/**
+ * Turns a scale label like "Definitely agree" into a CSS class suffix
+ * like "rating-definitely-agree", matching the .facilitator-answer.rating-*
+ * rules in style.css.
+ */
+function ratingClass(response) {
+  const slug = String(response).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return 'rating-' + slug;
+}
 
 /**
  * Builds one small donut panel showing the response distribution for a
@@ -139,7 +162,7 @@ function renderWorkshopSections() {
     equalizeHeadingHeights(workshopRow);
   }
 
-  // Facilitator Workshop Report — single answer per question, list format
+  // Facilitator Workshop Report — ratings (colour-coded pills) + free text
   const facilitatorTitle = document.createElement('div');
   facilitatorTitle.className = 'eval-section-title';
   facilitatorTitle.textContent = 'Facilitator Workshop Report';
@@ -149,15 +172,34 @@ function renderWorkshopSections() {
   facilitatorPanel.className = 'facilitator-report-panel';
   workshopSections.appendChild(facilitatorPanel);
 
-  const answers = FACILITATOR_REPORTS[selectedCourse] || {};
+  const report = FACILITATOR_REPORTS[selectedCourse] || { ratings: {}, text: {} };
+  const ratings = report.ratings || {};
+  const textAnswers = report.text || {};
+
   FACILITATOR_REPORT_QUESTIONS.forEach(question => {
     const row = document.createElement('div');
     row.className = 'facilitator-row';
+    const answer = ratings[question] || '-';
+    const cls = answer !== '-' ? ratingClass(answer) : '';
     row.innerHTML = `
       <div class="facilitator-question">${question}</div>
-      <div class="facilitator-answer">${answers[question] || '-'}</div>
+      <div class="facilitator-answer ${cls}">${answer}</div>
     `;
     facilitatorPanel.appendChild(row);
+  });
+
+  const textPanel = document.createElement('div');
+  textPanel.className = 'facilitator-text-panel';
+  workshopSections.appendChild(textPanel);
+
+  FACILITATOR_REPORT_TEXT_FIELDS.forEach(field => {
+    const row = document.createElement('div');
+    row.className = 'facilitator-text-row';
+    row.innerHTML = `
+      <div class="facilitator-text-question">${field}</div>
+      <div class="facilitator-text-answer">${textAnswers[field] || '-'}</div>
+    `;
+    textPanel.appendChild(row);
   });
 }
 
