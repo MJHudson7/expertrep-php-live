@@ -26,16 +26,11 @@
 
 require_once __DIR__ . '/config.php';
 
-$conn = new mysqli(
-    $host,
-    $user,
-    $password,
-    $database,
-    $port
-);
+$conn = mysqli_init();
+$conn->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn->real_connect($host, $user, $password, $database, $port)) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
 $sql = "SELECT fullname, id
