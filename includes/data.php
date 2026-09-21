@@ -10,19 +10,52 @@
  * nothing else in the app needs to change.
  */
 
-const COURSES = [
-    'Anatomy and Physiology of the Human Body',
-    'Disease Management',
-    'Diabetes Fundamentals',
-    'Pharmacovigilance and Reporting Adverse Events',
-    'Travel Safely',
-    'Interpreting and Presenting Clinical Trials',
-    'Constructive Conversations - Giving and Receiving Feedback',
-    'Negotiation Principles and Practices',
-    'Selling - Balancing Science and Art',
-    'Assertive Customer-centric Engagement in Healthcare Product Promotion and Sales',
-    'From Sales Manager to Sales Team Leader',
-];
+// const COURSES = [
+//     'Anatomy and Physiology of the Human Body',
+//     'Disease Management',
+//     'Diabetes Fundamentals',
+//     'Pharmacovigilance and Reporting Adverse Events',
+//     'Travel Safely',
+//     'Interpreting and Presenting Clinical Trials',
+//     'Constructive Conversations - Giving and Receiving Feedback',
+//     'Negotiation Principles and Practices',
+//     'Selling - Balancing Science and Art',
+//     'Assertive Customer-centric Engagement in Healthcare Product Promotion and Sales',
+//     'From Sales Manager to Sales Team Leader',
+// ];
+
+require_once _DIR_ . '/config.php';
+
+$conn = new mysqli(
+    $host,
+    $user,
+    $password,
+    $database,
+    $port
+);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT fullname, id
+        FROM {$prefix}course
+        WHERE category = 57
+        ORDER BY fullname";
+
+$result = $conn->query($sql);
+
+if (!$result) {
+    die("Course query failed: " . $conn->error);
+}
+
+$COURSES = [];
+$COURSE_IDS = [];
+
+while ($row = $result->fetch_assoc()) {
+    $COURSES[] = $row['fullname'];
+    $COURSE_IDS[] = (int)$row['id'];
+}
 
 const TEAMS = ['Diabetes Team', 'Dermatology Team', 'Immunology Team', 'Agency Team'];
 
