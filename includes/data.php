@@ -24,7 +24,7 @@
 //     'From Sales Manager to Sales Team Leader',
 // ];
 
-require_once _DIR_ . '/config.php';
+require_once __DIR__ . '/config.php';
 
 $conn = new mysqli(
     $host,
@@ -232,7 +232,7 @@ function get_records(): array
     $records = [];
     foreach (NAMES as $name) {
         $num_courses = 2 + mt_rand(0, 2); // 2-4 courses (out of 11 total)
-        $shuffled = COURSES;
+        $shuffled = $COURSES;
         shuffle($shuffled);
         $selected = array_slice($shuffled, 0, $num_courses);
 
@@ -462,7 +462,7 @@ const WORKSHOP_SCALE = ['Definitely agree', 'Moderately agree', 'Neither', 'Mode
  */
 function get_courses_with_workshop(): array
 {
-    return array_slice(COURSES, 0, 2);
+    return array_slice($COURSES, 0, 2);
 }
 
 function course_has_workshop(string $course): bool
